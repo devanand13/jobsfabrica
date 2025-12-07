@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id            Int                      @id @default(autoincrement())
+  email         String                   @unique
+  password      String
+  name          String?
+  createdAt     DateTime                 @default(now())
+  resumes       Resume[]
+
+  professionalDetails UserProfessionalDetails?
+}
+
+model Resume {
+  id        Int      @id @default(autoincrement())
+  s3Key     String
+  mimeType  String
+  userId    Int
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+
+model UserProfessionalDetails {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+
+  summary    String?
+  topSkills  String[]      @default([])   
+
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  user        User @relation(fields: [userId], references: [id])
+}
