@@ -5,7 +5,7 @@ export const APP_CONFIG = {
     nav: {
       main: [
         { label: 'Dashboard', href: '/dashboard' },
-        { label: 'Studio', href: '/studio' }, 
+        { label: 'Studio', href: '/studio' },
       ],
     },
     
